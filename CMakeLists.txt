@@ -11,12 +11,12 @@
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # and Eclipse Distribution License v1.0 which accompany this distribution.
-# 
+#
 # The Eclipse Public License is available at
 #   http://www.eclipse.org/legal/epl-v20.html
 # and the Eclipse Distribution License is available at
 #   http://www.eclipse.org/org/documents/edl-v10.php.
-# 
+#
 # Contributors:
 #   Guilherme Maciel Ferreira - initial version
 #   Frank Pagliughi
@@ -42,7 +42,7 @@ endif()
 option(PAHO_BUILD_SAMPLES "Build sample programs" FALSE)
 option(PAHO_BUILD_TESTS "Build tests (requires Catch2)" FALSE)
 option(PAHO_BUILD_DOCUMENTATION "Create and install the API documentation (requires Doxygen)" FALSE)
-option(PAHO_WITH_MQTT_C "Build Paho C from the internal GIT submodule." FALSE)
+option(PAHO_WITH_MQTT_C "Build Paho C from the internal GIT submodule." TRUE)
 
 if(NOT PAHO_BUILD_SHARED AND NOT PAHO_BUILD_STATIC)
   message(FATAL_ERROR "You must set either PAHO_BUILD_SHARED, PAHO_BUILD_STATIC, or both")
@@ -55,9 +55,9 @@ if(PAHO_WITH_MQTT_C)
 
   ## Build the Paho C library from the submodule
   set(PAHO_ENABLE_TESTING FALSE CACHE BOOL "No Paho C tests")
-  set(PAHO_HIGH_PERFORMANCE TRUE CACHE BOOL "Paho C high performance")
+  # set(PAHO_HIGH_PERFORMANCE TRUE CACHE BOOL "Paho C high performance")
 
-  add_subdirectory(${PROJECT_SOURCE_DIR}/externals/paho-mqtt-c)
+  add_subdirectory(${PROJECT_SOURCE_DIR}/src/externals/paho-mqtt-c)
 
   ## Alias namespace so that the full names can be used with the subdir.
   if(PAHO_BUILD_SHARED)
@@ -158,7 +158,8 @@ elseif(UNIX)
 	endif()
 endif()
 
-include(CPack)
+#屏蔽cpack 防止cmake报错
+# include(CPack)
 
-add_subdirectory(cmake)
+# add_subdirectory(cmake)
 
